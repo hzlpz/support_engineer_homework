@@ -22,7 +22,7 @@ Result:
 - List all organizations that have only one account plan.
 
 SELECT * 
-FROM organizations 
+FROM account_plan
 WHERE JSON_ARRAY_LENGTH(data->'organizationid') = 1;
 
 Result: 
