@@ -1,0 +1,45 @@
+- How many organizations do not have account plans? 
+
+SELECT COUNT(*) 
+FROM account_plan 
+WHERE data->>'planname' IS NULL;
+
+
+Result: 7 
+
+(7 of these merchants are on the Free Trial plan.)
+
+
+- How many organizations have more than one account plan?
+
+SELECT COUNT(*) 
+FROM account_plan 
+WHERE JSON_ARRAY_LENGTH(data->'organizationid') > 1;
+
+Result: 
+"Test Account 5"
+
+- List all organizations that have only one account plan.
+
+SELECT * 
+FROM organizations 
+WHERE JSON_ARRAY_LENGTH(data->'organizationid') = 1;
+
+Result: 
+"Test Account 1"
+"Test Account 2"
+"Test Account 3"
+"Test Account 4"
+"Test Account 6"
+"Test Account 7"
+"Test Account 8"
+"Test Account 9"
+
+
+- List all organizations that have the PASSWORDLESS feature set to true.
+
+SELECT * 
+FROM account_plan 
+WHERE data->'features'->>'PASSWORDLESS' = 'true';
+
+Result: "Test Account 2"
